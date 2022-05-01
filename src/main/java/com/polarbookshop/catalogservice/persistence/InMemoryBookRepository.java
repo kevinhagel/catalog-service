@@ -15,7 +15,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class InMemoryBookRepository implements BookRepository {
-
   private static final Map<String, Book> books = new ConcurrentHashMap<>();
 
   @Override
