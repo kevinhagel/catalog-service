@@ -9,6 +9,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.Profile;
 
 class BookValidationTests {
 
@@ -22,14 +23,14 @@ class BookValidationTests {
 
   @Test
   void whenAllFieldsCorrectThenValidationSucceds() {
-    var book = new Book("1234567890" ,"Title", "Author", 9.90);
+    var book = Book.build("1234567890" ,"Title", "Author", 9.90, "Polarsophia");
     Set<ConstraintViolation<Book>> violations = validator.validate(book);
     assertThat(violations).isEmpty();
   }
 
   @Test
   void whenIsbnDefinedButInocrrectThenValidaitonFails() {
-    var book = new Book("a1234567890" ,"Title", "Author", 9.90);
+    var book = Book.build("a1234567890" ,"Title", "Author", 9.90, "Polarsophia");
     Set<ConstraintViolation<Book>> violations = validator.validate(book);
     assertThat(violations).hasSize(1);
     assertThat(violations.iterator().next().getMessage())

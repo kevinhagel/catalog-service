@@ -44,10 +44,15 @@ public class BookService {
       return addBookToCatalog(book);
     }
     var bookToUpdate = new Book(
+      existingBook.get().id(),
       existingBook.get().isbn(),
       book.title(),
       book.author(),
-      book.price()
+      book.price(),
+      book.publisher(),
+      book.createdDate(),
+      book.lastModifiedDate(),
+      existingBook.get().version()
     );
     return bookRepository.save(book);
   }
